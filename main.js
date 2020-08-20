@@ -1,8 +1,7 @@
 const Discord = require('discord.js');
-const config = require('./config.json'); //needs to be added if you clone the directory from github
+const {prefix, token} = require('./config.json'); //needs to be added if you clone the directory from github
 
 const client = new Discord.Client();
-const prefix = config.prefix;
 const fs = require('fs'); //file system to be able to implement the commands in different files
 client.commands = new Discord.Collection(); //collection for the commands
 
@@ -28,24 +27,14 @@ client.on('message', message => {
     if(message.content === 'o/') {
         message.reply('\\o');
     }else if(message.author.id == "325261805674954754") {
-        var randNum = Math.floor(Math.random() * 3);
-        switch(randNum) {
-            case 0:
-                message.channel.send("fuck you roushd c: -kamil");
-                break;
-            case 1:
-                message.channel.send("go die you depressive piece of garbage -kamil");
-                break;
-            default:
-                message.channel.send("explode like the good muslim you are -kamil");
-        }
+        client.commands.get('roushdHated').execute(message);
     }
 
     //if the message doesn't start with the prefix, it's going to ignore it
-    if(!message.content.startsWith(config.prefix)) return; 
+    if(!message.content.startsWith(prefix)) return; 
 
     //will take all the words after the command as arguments
-    const args = message.content.slice(config.prefix.length).split(/ +/);
+    const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
     if(command === 'ping') {
@@ -55,4 +44,4 @@ client.on('message', message => {
 
 });
 
-client.login(config.token);
+client.login(token);
