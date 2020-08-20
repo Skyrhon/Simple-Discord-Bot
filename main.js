@@ -17,7 +17,7 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('message', message => {
+client.on('message', async (message) => {
 
     //if the author is the bot, it's going to ignore it
     if(message.author.bot) return;
@@ -37,8 +37,11 @@ client.on('message', message => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
+    //search for the discord collection of commands then execute them
     if(command === 'ping') {
         client.commands.get('ping').execute(message, args);
+    }else if(command === 'server') {
+        client.commands.get('server').execute(message, args);
     }
 
 
